@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I love you so much 💞</title>
+
+    <link rel="icon" type="image/gif" href="diego-brando-chibi.gif">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Georgia, serif;
+        }
+        body {
+            background: linear-gradient(180deg, #F3E7EE, #E8D5DE, #DCC8D0);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            padding-bottom: 60px;
+        }
+        .caja-osos {
+            margin-top: 15px;
+            margin-bottom: 12px;
+        }
+        .gif-fondo {
+            width: 240px;
+            height: auto;
+            filter: drop-shadow(0 4px 10px rgba(180, 140, 160, 0.3));
+        }
+        .foto-principal {
+            width: 75%;
+            max-width: 340px;
+            height: auto;
+            border-radius: 16px;
+            margin-bottom: 25px;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.18);
+        }
+        .contenedor-principal {
+            display: flex;
+            gap: 25px;
+            flex-wrap: wrap;
+            justify-content: center;
+            width: 100%;
+            max-width: 900px;
+        }
+        .lado-izquierdo {
+            flex: 1;
+            min-width: 340px;
+            max-width: 400px;
+        }
+        .lado-derecho {
+            flex: 1;
+            min-width: 340px;
+            max-width: 400px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .ventana {
+            background: rgba(255, 248, 251, 0.96);
+            border: 4px solid #D4B8C4;
+            border-radius: 20px;
+            width: 100%;
+            min-height: 340px;
+            box-shadow: 0 12px 40px rgba(150, 110, 130, 0.22);
+            display: flex;
+            flex-direction: column;
+        }
+        .barra {
+            background: linear-gradient(90deg, #F6E6EE, #F0D9E3, #F6E6EE);
+            padding: 12px 15px;
+            border-bottom: 3px solid #D4B8C4;
+            border-radius: 16px 16px 0 0;
+            text-align: center;
+        }
+        .titulo {
+            font-size: 16px;
+            color: #000;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+        }
+        .corazon {
+            display: inline-block;
+            animation: latido 1s ease-in-out infinite;
+        }
+        @keyframes latido {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+        .contenido {
+            padding: 25px 18px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            min-height: 240px;
+        }
+        .linea {
+            font-size: 20px;
+            font-weight: bold;
+            color: #5C3A4C;
+            padding: 10px 16px;
+            border-radius: 12px;
+            background: rgba(244, 228, 236, 0.6);
+            opacity: 0;
+            transform: translateY(15px);
+            transition: all 0.7s ease;
+            text-align: center;
+            max-width: 100%;
+            line-height: 1.6;
+            box-shadow: 0 2px 8px rgba(150, 110, 130, 0.1);
+        }
+        .linea.activa {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .linea.saliendo {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+        .linea.ingles {
+            color: #704A60;
+            font-style: italic;
+            font-size: 18px;
+        }
+        .controles {
+            padding: 15px;
+            text-align: center;
+            border-top: 3px solid #E8D9E0;
+            background: rgba(252, 245, 249, 0.5);
+            border-radius: 0 0 16px 16px;
+        }
+        button {
+            padding: 11px 28px;
+            border: 3px solid #C9A8B4;
+            background: linear-gradient(180deg, #F7EDF2, #F0D9E3);
+            color: #6B4855;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            margin: 0 4px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(160, 120, 140, 0.15);
+        }
+        button:hover {
+            background: linear-gradient(180deg, #F0D9E3, #E8C9D7);
+            transform: translateY(-3px);
+        }
+        #cancion { display: none; }
+
+        /* 💌 SOBRE ARRIBA FIJO — CARTA SALE HACIA ABAJO 💌 */
+        .texto-antes {
+            font-size: 18px;
+            font-weight: bold;
+            color: #6C4A57;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .contenedor-sobre {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .sobre {
+            width: 300px;
+            height: 200px;
+            background: linear-gradient(180deg, #F6E6EE, #F0D9E3);
+            border: 3px solid #D4B8C4;
+            border-radius: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 20px rgba(150, 110, 130, 0.2);
+            transition: transform 0.3s ease;
+            position: relative;
+            z-index: 10;
+        }
+        .sobre:hover {
+            transform: scale(1.03);
+        }
+        .sobre-texto {
+            font-size: 20px;
+            font-weight: bold;
+            color: #805B68;
+            z-index: 15;
+            text-align: center;
+            padding: 0 10px;
+        }
+        .solapa {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 80px;
+            background: linear-gradient(180deg, #F0D9E3, #E8C9D7);
+            border-radius: 14px 14px 0 0;
+            clip-path: polygon(0 0, 50% 100%, 100% 0);
+            transition: transform 0.6s ease;
+            transform-origin: top center;
+            z-index: 16;
+        }
+        .sobre.abierto .solapa {
+            transform: rotateX(180deg);
+        }
+        /* CARTA: sale HACIA ABAJO desde el sobre */
+        .carta {
+            position: absolute;
+            top: 180px;
+            width: 320px;
+            background: #fffafc;
+            border: 3px solid #E8D9E0;
+            border-radius: 14px;
+            padding: 25px 20px;
+            box-shadow: 0 10px 25px rgba(150, 110, 130, 0.15);
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all 0.6s ease;
+            display: none;
+            line-height: 1.9;
+            max-height: 65vh;
+            overflow-y: auto;
+            z-index: 5;
+        }
+        .carta.visible {
+            opacity: 1;
+            transform: translateY(10px);
+            display: block;
+        }
+        .carta p {
+            margin-bottom: 15px;
+            color: #6A4C73;
+            font-weight: bold;
+        }
+        .carta .despedida {
+            text-align: right;
+            font-weight: bold;
+            color: #805B68;
+            margin-top: 20px;
+            font-size: 17px;
+        }
+
+        /* 📱 RESPONSIVO */
+        @media (max-width: 768px) {
+            .contenedor-principal { flex-direction: column; }
+            .linea { font-size: 18px; }
+            .sobre { width: 280px; height: 180px; }
+            .carta { width: 300px; }
+        }
+        @media (max-width: 480px) {
+            .foto-principal { max-width: 280px; }
+            .linea { font-size: 16px; }
+            .carta { width: 290px; font-size: 14px; }
+        }
+    </style>
+</head>
+<body>
+    
+<div style="text-align: center; margin-bottom: 20px;">
+    <img src="tumblr_o0q37w5OSx1tlmyzco1_500.gif" alt="GIF" class="foto-principal">
+</div>
+
+<div class="contenedor-principal">
+    <div class="lado-izquierdo">
+        <div class="ventana">
+            <div class="barra">
+                <span class="titulo">tii amooo muchisisismo mi Denzelito<span class="corazon">💓</span></span>
+            </div>
+            <div class="contenido" id="letra"></div>
+            <div class="controles">
+                <button onclick="iniciar()">▶ Reproducir</button>
+                <button onclick="reiniciar()">↺ Reiniciar</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="lado-derecho">
+        <p class="texto-antes">💌 Toca el sobre para abrirlo<br>💌 Toca otra vez para cerrarlo</p>
+
+        <div class="contenedor-sobre">
+            <!-- 💌 SOBRE ARRIBA FIJO -->
+            <div class="sobre" id="sobre" onclick="alternarSobre()">
+                <div class="solapa"></div>
+                <span class="sobre-texto" id="texto-sobre">❤️ Para ti ❤️</span>
+            </div>
+
+            <!-- 📄 CARTA SALE HACIA ABAJO -->
+            <div class="carta" id="carta">
+                <p>ODAAAAAA BUEÑAASSHH MI NIÑOOO HERMOSHOOO ESPERO QUE ESTES MUY BIEMM.</p>
+
+                <p>amor se que casi no demuestro cuánto te amo o que no me se expresar de la mejor manera pero créeme que sigo teniendo los mismos sentimientos por ti desde el primer día que me gustas te, y apesar de la distancia quiero expresarte lo que realmente siento por ti pues créeme que no me había sentido así en mi vida, pues contigo si me nace hacer las cosas y querer mejorar para estar bien junto, disculpame por no estar tan presente en estos días pues ya la escuela me ocupa mucho y casi siempre estoy llena de tareas pero apesar de eso siempre te extraño, pero lo que me gusta es que gracias a la escuela aprendí a hacer muchas cosas y algo de eso es esto aunque se que no es lo mejor del mundo me gustaría seguir haciendo más cosas para mandarte aunque no se vean bien por qué me nace ser detallista contigo apesar de la distancia...</p>
+
+                <p>Amorcito te agradezco por seguir conmigo apesar de las diferentes situaciones, malentendidos y peleas en las que hemos estado pero apesar de eso sigues a mi lado y eso me hace muy contenta, enserio que mis sentimientos por ti son sinceros, eres el niño más guapo, más precioso, eres el mejor novio, eres el único que le daría mi corazón por completo, y ojalá que algún día nos podamos ver aunque sea solo una vez eso me haría demasiado feliz.</p>
+
+                <p>Y también quiero que sepas que aunque aveces no sepa cómo demostrarte todo lo que siento, eso no significa que te quiera menos, al contrario, muchas veces tengo tantas cosas que decirte que ni siquiera se cómo empezar JAJAJAJ, me haces sentir algo muy bonito y especial que no quisiera perder nunca, y aunque aveces tengamos nuestros problemas o días malos, yo quiero seguir intentando contigo y seguir aprendiendo a llevar esto juntos.</p>
+
+                <p>Me gusta saber que tengo a alguien como tú, alguien a quien puedo contarle mis cosas, hacerle tonterías, hablar de cualquier cosa y simplemente ser yo, me haces sentir muy querida y espero yo también hacerte sentir así, porque de verdad quiero que sepas que eres muy importante para mí y que ocupas un lugar muy especial en mi corazón.</p>
+
+                <p>Y aunque estemos lejos y no podamos hacer muchas de las cosas que quisiera contigo, me gusta pensar que algún día vamos a poder estar juntos aunque sea por un ratito, poder verte, abrazarte y decirte todo esto pero ya teniéndote enfrente JAJSAJSAJ, creo que ese sería uno de los momentos más bonitos para mí.</p>
+
+                <p>No se cuánto vaya a durar todo esto, pero si algo tengo claro es que quiero seguir disfrutando cada momento contigo, seguir haciendo recuerdos, seguir aprendiendo de nosotros y seguir queriéndote muchísimo. Gracias por llegar a mi vida y por quedarte, incluso cuando no todo ha sido perfecto.</p>
+
+                <p class="despedida">TE AMOOOO DEMASIADOOOO MI NIÑOOOO HERMOSHOOO, nunca olvides que tienes a una niña que te quiere muchísimo y que aunque aveces sea bien mensa para demostrarlo, te ama con todo su corazoncito. Te amooo mucho denzelito.. 💞😭</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<audio id="cancion">
+    <source src="cancion.mp3" type="audio/mpeg">
+
+<script>
+const letra = [
+    {t: "", d: 13000},
+    {t: "Mi querido amor", d: 3000},
+    {t: "Yo sé, quedaron cicatrices", d: 3000},
+    {t: "Hoy será mejor", d: 3000},
+    {t: "Ya sabemos de nuestros matices", d: 3000},
+    {t: "Ah-ah, yo sé que sanará", d: 6000},
+    {t: "Ah-ah, yo sé que sanará", d: 6000},
+    {t: "", d: 300},
+    {t: "There's no reason", d: 3600, en: true},
+    {t: "Not to love you like I love you", d: 3500, en: true},
+    {t: "Reason, we will be alright", d: 4200, en: true},
+    {t: "We won't cry, ah-ah", d: 6700, en: true},
+    {t: "Cry, we will be alright", d: 6000, en: true},
+    {t: "We won't cry", d: 4900, en: true},
+    {t: "", d: 8400},
+    {t: "Mi querido amor", d: 3300},
+    {t: "Seremos un lugar seguro", d: 3500},
+    {t: "El tiempo pasará", d: 3000},
+    {t: "Tenemos miles de futuros", d: 3500},
+    {t: "Ah-ah, yo sé que sanará", d: 5100},
+    {t: "Ah-ah, yo sé que sanará", d: 6000},
+    {t: "", d: 500},
+    {t: "There's no reason", d: 3500, en: true},
+    {t: "Not to love you like I love you", d: 3800, en: true},
+    {t: "Reason, we will be alright", d: 4200, en: true},
+    {t: "We won't cry, ah-ah", d: 16000, en: true},
+    {t: "Y de blanco te esperé en el altar", d: 5800},
+    {t: "Tú eres lo que siempre yo soñé", d: 5300},
+    {t: "My love", d: 2400, en: true},
+    {t: "My one and only love", d: 4900, en: true},
+    {t: "", d: 300},
+    {t: "There's no reason", d: 3400, en: true},
+    {t: "Not to love you like I love you", d: 3200, en: true},
+    {t: "Reason, we will be alright", d: 4000, en: true},
+    {t: "We won't cry, ah-ah", d: 10000, en: true},
+    {t: "Tú y yo en cada eternidad…💞", d: 10000}
+];
+
+let i = 0, activo = false;
+const caja = document.getElementById('letra');
+const audio = document.getElementById('cancion');
+
+async function mostrar() {
+    if (i >= letra.length) { activo = false; return; }
+    const l = letra[i];
+    if (!l.t) { i++; await esperar(l.d); if (activo) mostrar(); return; }
+    const div = document.createElement('div');
+    div.className = 'linea' + (l.en ? ' ingles' : '');
+    div.textContent = l.t;
+    caja.appendChild(div);
+    setTimeout(() => div.classList.add('activa'), 60);
+    i++; await esperar(l.d);
+    const todas = caja.querySelectorAll('.linea');
+    if (todas.length > 0) { todas[0].classList.add('saliendo'); setTimeout(() => todas[0].remove(), 700); }
+    if (activo) mostrar();
+}
+function esperar(ms) { return new Promise(r => setTimeout(r, ms)); }
+function iniciar() { if (!activo) { activo = true; i = 0; caja.innerHTML = ""; audio.currentTime = 0; audio.play(); mostrar(); } }
+function reiniciar() { activo = false; i = 0; caja.innerHTML = ""; audio.pause(); audio.currentTime = 0; }
+
+// 💌 SOBRE FIJO ARRIBA — CARTA SALE HACIA ABAJO 💌
+let sobreAbierto = false;
+function alternarSobre() {
+    const sobre = document.getElementById('sobre');
+    const carta = document.getElementById('carta');
+    const textoSobre = document.getElementById('texto-sobre');
+
+    if (!sobreAbierto) {
+        sobre.classList.add('abierto');
+        setTimeout(() => carta.classList.add('visible'), 300);
+        textoSobre.textContent = "❤️ Toca para cerrar ❤️";
+        sobreAbierto = true;
+    } else {
+        carta.classList.remove('visible');
+        setTimeout(() => sobre.classList.remove('abierto'), 300);
+        textoSobre.textContent = "❤️ Para ti ❤️";
+        sobreAbierto = false;
+    }
+}
+</script>
+
+</body>
+</html>
